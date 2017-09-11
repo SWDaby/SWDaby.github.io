@@ -88,24 +88,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
 
 
 
 
 
 
-<meta name="description" content="学习 Md ing 持续更新 1.斜体和粗体ex：12345*我是斜体* 或 _我也是斜体_**我是粗体*****加粗斜体*****_我也是加粗斜体_**~~我是删除线~~">
+<meta name="description" content="学习 Md ing 持续更新 概述宗旨 Markdown 的目标是实现「易读易写」。 可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 Setext、atx、Textile、reStructuredText、Grutate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown语法手册">
 <meta property="og:url" content="http://yoursite.com/2017/09/04/Markdown语法手册/index.html">
 <meta property="og:site_name" content="Daby&#39;note">
-<meta property="og:description" content="学习 Md ing 持续更新 1.斜体和粗体ex：12345*我是斜体* 或 _我也是斜体_**我是粗体*****加粗斜体*****_我也是加粗斜体_**~~我是删除线~~">
+<meta property="og:description" content="学习 Md ing 持续更新 概述宗旨 Markdown 的目标是实现「易读易写」。 可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 Setext、atx、Textile、reStructuredText、Grutate">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-09T16:43:20.791Z">
+<meta property="og:updated_time" content="2017-09-11T14:27:45.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown语法手册">
-<meta name="twitter:description" content="学习 Md ing 持续更新 1.斜体和粗体ex：12345*我是斜体* 或 _我也是斜体_**我是粗体*****加粗斜体*****_我也是加粗斜体_**~~我是删除线~~">
+<meta name="twitter:description" content="学习 Md ing 持续更新 概述宗旨 Markdown 的目标是实现「易读易写」。 可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 Setext、atx、Textile、reStructuredText、Grutate">
 
 
 
@@ -347,8 +347,34 @@
 
       
         <p><em>学习 <strong>Md</strong> ing 持续更新</em></p>
-<h1 id="1-斜体和粗体"><a href="#1-斜体和粗体" class="headerlink" title="1.斜体和粗体"></a>1.斜体和粗体</h1><h2 id="ex："><a href="#ex：" class="headerlink" title="ex："></a>ex：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">*我是斜体* 或 _我也是斜体_</div><div class="line">**我是粗体**</div><div class="line">***加粗斜体***</div><div class="line">**_我也是加粗斜体_**</div><div class="line">~~我是删除线~~</div></pre></td></tr></table></figure>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="宗旨"><a href="#宗旨" class="headerlink" title="宗旨"></a>宗旨</h2><blockquote>
+<p><strong><em>Markdown 的目标是实现「易读易写」。</em></strong></p>
+<p>可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 Setext、atx、Textile、reStructuredText、Grutatext 和 EtText，而最大灵感来源其实是纯文本电子邮件的格式。</p>
+<p>总之， Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像<code>*强调*</code>。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。</p>
+</blockquote>
+<h2 id="兼容-HTML"><a href="#兼容-HTML" class="headerlink" title="兼容 HTML"></a>兼容 HTML</h2><blockquote>
+<p>Markdown 语法的目标是：成为一种适用于网络的书写语言。</p>
+<p>Markdown 不是想要取代 HTML，甚至也没有要和它相近，它的语法种类很少，只对应 HTML 标记的一小部分。Markdown 的构想不是要使得 HTML 文档更容易书写。在我看来， HTML 已经很容易写了。Markdown 的理念是，能让文档更容易读、写和随意改。<strong><em>HTML 是一种发布的格式，Markdown 是一种书写的格式。</em></strong>就这样，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。</p>
+<p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。不需要额外标注这是 HTML 或是 Markdown；只要直接加标签就可以了。</p>
+<p>要制约的只有一些 HTML 区块元素――比如 <code>&lt;div&gt;、&lt;table&gt;、&lt;pre&gt;、&lt;p&gt;</code>等标签，必须在前后加上空行与其它内容区隔开，还要求它们的开始标签与结尾标签不能用制表符或空格来缩进。Markdown 的生成器有足够智能，不会在 HTML 区块标签外加上不必要的<code>&lt;p&gt;</code> 标签</p>
+<p>例子如下，在 Markdown 文件里加上一段 HTML 表格：</p>
+</blockquote>
 <a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">这是一个普通段落。</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>Foo<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"></div><div class="line">这是另一个普通段落。</div></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意，在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的<em>强调</em>会没有效果。</p>
+<p>HTML 的区段（行内）标签如 <code>&lt;span&gt;、&lt;cite&gt;、&lt;del&gt;</code>可以在 Markdown 的段落、列表或是标题里随意使用。依照个人习惯，甚至可以不用 Markdown 格式，而直接采用 HTML 标签来格式化。举例说明：如果比较喜欢 HTML 的 <code>&lt;a&gt; 或 &lt;img&gt;</code>标签，可以直接使用这些标签，而不用 Markdown 提供的链接或是图像标签语法。</p>
+<p>和处在 HTML 区块标签间不同，Markdown 语法在 HTML 区段标签间是有效的。</p>
+</blockquote>
+<h2 id="特殊字符自动转换"><a href="#特殊字符自动转换" class="headerlink" title="特殊字符自动转换"></a>特殊字符自动转换</h2><p>在 HTML 文件中，有两个字符需要特殊处理： <code>&lt; 和 &amp;</code>。 <code>&lt;</code>符号用于起始标签，<code>&amp;</code>符号则用于标记 HTML 实体，如果你只是想要显示这些字符的原型，你必须要使用实体的形式，像是 <code>&amp;lt; 和 &amp;amp;</code>。</p>
+<blockquote>
+<p><code>&amp;</code> 字符尤其让网络文档编写者受折磨，如果你要打<code>「AT&amp;T」</code> ，你必须要写成<code>「AT&amp;amp;T」</code>。而网址中的 <code>&amp;</code> 字符也要转换。比如你要链接到：<br><code>http://images.google.com/images?num=30&amp;q=larry+bird</code><br>你必须要把网址转换写为：<br><code>http://images.google.com/images?num=30&amp;amp;q=larry+bird</code><br>才能放到链接标签的 <code>href</code> 属性里。不用说也知道这很容易忽略，这也可能是 HTML 标准检验所检查到的错误中，数量最多的。</p>
+<p>Markdown 让你可以自然地书写字符，需要转换的由它来处理好了。如果你使用的 <code>&amp;</code>字符是 HTML 字符实体的一部分，它会保留原状，否则它会被转换成<code>&amp;amp;</code>。</p>
+<p>所以你如果要在文档中插入一个版权符号 <code>©</code>，你可以这样写：<br><code>&amp;copy;</code><br>Markdown 会保留它不动。而若你写：<br><code>AT&amp;T</code><br>Markdown 就会将它转为：<br><code>AT&amp;amp;T</code><br>类似的状况也会发生在 <code>&lt;</code>符号上，因为 Markdown 允许 兼容 HTML ，如果你是把<code>&lt;</code>符号作为 HTML 标签的定界符使用，那 Markdown 也不会对它做任何转换，但是如果你写：<br><code>4 &lt; 5</code><br>Markdown 将会把它转换为：<br><code>4 &amp;lt; 5</code><br>不过需要注意的是，code 范围内，不论是行内还是区块， <code>&lt;</code>和 <code>&amp;</code>两个符号都一定会被转换成 HTML 实体，这项特性让你可以很容易地用 Markdown 写 HTML code(和 HTML 相对而言， HTML 语法中，你要把所有的 <code>&lt;</code> 和<code>&amp;</code> 都转换为 HTML 实体，才能在 HTML 文件里面写出 HTML code。)</p>
+</blockquote>
+<p><strong>附：</strong><a href="http://www.appinn.com/markdown/#p" title="markdown" target="_blank" rel="external">markdown语法说明</a> ，上概述引用于此</p>
+<hr>
+<h1 id="1-斜体和粗体"><a href="#1-斜体和粗体" class="headerlink" title="1.斜体和粗体"></a>1.斜体和粗体</h1><h2 id="ex："><a href="#ex：" class="headerlink" title="ex："></a>ex：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">*我是斜体* 或 _我也是斜体_</div><div class="line">**我是粗体**</div><div class="line">***加粗斜体***</div><div class="line">**_我也是加粗斜体_**</div><div class="line">~~我是删除线~~</div></pre></td></tr></table></figure>
 <h3 id="效果："><a href="#效果：" class="headerlink" title="效果："></a>效果：</h3><p><em>我是斜体</em>  或 <em>我也是斜体</em><br><strong>我是粗体</strong><br><strong><em>加粗斜体</em></strong><br><strong><em>我也是加粗斜体</em></strong><br><del>我是删除线</del></p>
 <hr>
 <h1 id="2-分级标题（无演示效果）"><a href="#2-分级标题（无演示效果）" class="headerlink" title="2.分级标题（无演示效果）"></a>2.分级标题（无演示效果）</h1><h2 id="ex①："><a href="#ex①：" class="headerlink" title="ex①："></a>ex①：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">我是一个一级标题</div><div class="line">============================</div><div class="line">我是一个二级标题</div><div class="line">--------------------------------------------------</div></pre></td></tr></table></figure>
@@ -557,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-斜体和粗体"><span class="nav-number">1.</span> <span class="nav-text">1.斜体和粗体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ex："><span class="nav-number">1.1.</span> <span class="nav-text">ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果："><span class="nav-number">1.1.1.</span> <span class="nav-text">效果：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-分级标题（无演示效果）"><span class="nav-number">2.</span> <span class="nav-text">2.分级标题（无演示效果）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ex①："><span class="nav-number">2.1.</span> <span class="nav-text">ex①：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ex②："><span class="nav-number">2.2.</span> <span class="nav-text">ex②：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-超链接"><span class="nav-number">3.</span> <span class="nav-text">3.超链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#👉行内式-ex："><span class="nav-number">3.1.</span> <span class="nav-text">👉行内式 ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">效果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#👉参考式-ex："><span class="nav-number">3.2.</span> <span class="nav-text">👉参考式 ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">效果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#👉自动链接："><span class="nav-number">3.3.</span> <span class="nav-text">👉自动链接：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-3"><span class="nav-number">3.3.1.</span> <span class="nav-text">效果：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#宗旨"><span class="nav-number">1.1.</span> <span class="nav-text">宗旨</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容-HTML"><span class="nav-number">1.2.</span> <span class="nav-text">兼容 HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊字符自动转换"><span class="nav-number">1.3.</span> <span class="nav-text">特殊字符自动转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-斜体和粗体"><span class="nav-number">2.</span> <span class="nav-text">1.斜体和粗体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ex："><span class="nav-number">2.1.</span> <span class="nav-text">ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果："><span class="nav-number">2.1.1.</span> <span class="nav-text">效果：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-分级标题（无演示效果）"><span class="nav-number">3.</span> <span class="nav-text">2.分级标题（无演示效果）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ex①："><span class="nav-number">3.1.</span> <span class="nav-text">ex①：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ex②："><span class="nav-number">3.2.</span> <span class="nav-text">ex②：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-超链接"><span class="nav-number">4.</span> <span class="nav-text">3.超链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#👉行内式-ex："><span class="nav-number">4.1.</span> <span class="nav-text">👉行内式 ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">效果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#👉参考式-ex："><span class="nav-number">4.2.</span> <span class="nav-text">👉参考式 ex：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-2"><span class="nav-number">4.2.1.</span> <span class="nav-text">效果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#👉自动链接："><span class="nav-number">4.3.</span> <span class="nav-text">👉自动链接：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#效果：-3"><span class="nav-number">4.3.1.</span> <span class="nav-text">效果：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
