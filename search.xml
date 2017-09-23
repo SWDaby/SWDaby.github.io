@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Android启动过程]]></title>
+    <url>%2F2017%2F09%2F23%2FAndroid%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[Android从Linux系统启动有4个步骤：粗略 ① init进程启动② Native服务启动③ System Server，Android服务启动④ Home启动🖼Android框架架构图：🖼启动框架如图：]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[杂图]]></title>
+    <url>%2F2017%2F09%2F23%2F%E6%9D%82%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[我的相机就跟我的牙刷一样，它作它该作的事，就是拍照。I only use a camera like I use a toothbrush. It does the job. -Don McCullin]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[插画]]></title>
     <url>%2F2017%2F09%2F11%2Fphotos%2F</url>
     <content type="text"><![CDATA[吾皇–吾皇的白茶]]></content>
