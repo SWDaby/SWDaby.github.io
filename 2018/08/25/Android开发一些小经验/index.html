@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Daby">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Daby">
+    <meta name="keywords" content="Daby's Blog | Daby">
+    <meta name="description" content="一个会点编程 设计的人">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Android开发的一些小经验 · Daby&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180824 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180824 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?11151029";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Daby&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Android开发的一些小经验</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Daby's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://picsum.photos/1600/500/?random)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Android开发的一些小经验
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">3,666</span> / Reading time: <span class="post-count">19 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/08/25</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="需求：知名网友叫我写一个Android推送的客户端"><a href="#需求：知名网友叫我写一个Android推送的客户端" class="headerlink" title="需求：知名网友叫我写一个Android推送的客户端"></a><strong>需求：</strong>知名网友叫我写一个Android推送的客户端</h1><p>服务器推送<strong><em>文字</em></strong> 消息，客户端用socket实现消息接受，并用状态栏提示消息。</p>
+<hr>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a><strong>要点</strong></h1><p>1、socket（tcp）的使用<br>2、主线程不能进行耗时操作<br> -网络操作不能写在主线程<br> -网络操作不能写在主线程<br> -网络操作不能写在主线程<br> （被坑过的我说三遍！当时比较傻X_X）</p>
+<p>3、Handler的使用<br>4、Notification的使用<br>5、activity、service之间的通讯(Intent和广播)<br>6、service维护长连接</p>
+<hr>
+<h1 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h1><p>功能比较简单，就是发送消息，直接贴代码<br>复制粘贴编译运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">import java.io.BufferedReader;</div><div class="line">import java.io.BufferedWriter;</div><div class="line">import java.io.IOException;</div><div class="line">import java.io.InputStream;</div><div class="line">import java.io.InputStreamReader;</div><div class="line">import java.io.OutputStreamWriter;</div><div class="line">import java.net.ServerSocket;</div><div class="line">import java.net.InetAddress;</div><div class="line">import java.util.Date;</div><div class="line">import java.text.SimpleDateFormat;</div><div class="line">import java.net.Socket;</div><div class="line"></div><div class="line">public class MySocketServer &#123;</div><div class="line"> </div><div class="line">     private static final int SOCKET_PORT = 9998;</div><div class="line">     private ServerSocket serverSocket = null;</div><div class="line">     private boolean flag = true;</div><div class="line">     private BufferedReader reader;</div><div class="line">     private BufferedWriter writer;</div><div class="line">    </div><div class="line"> </div><div class="line">     /**</div><div class="line">      * @param args</div><div class="line">      */</div><div class="line">     public static void main(String[] args) &#123;</div><div class="line">    </div><div class="line"></div><div class="line">           MySocketServer socketServer = new MySocketServer();</div><div class="line">           socketServer.initSocket();</div><div class="line">     &#125;</div><div class="line"> </div><div class="line">     private void initSocket() &#123;</div><div class="line">            try &#123;</div><div class="line"></div><div class="line">                    InetAddress ad=InetAddress.getLocalHost();</div><div class="line">                    System.out.println(&quot;本机计算名：&quot; + ad.getHostName());</div><div class="line">                    System.out.println(&quot;IP地址：&quot; + ad.getHostAddress());</div><div class="line">                    serverSocket = new ServerSocket( SOCKET_PORT);</div><div class="line">                    System. out.println( &quot;服务已经启动，端口号:&quot; + SOCKET_PORT);</div><div class="line"></div><div class="line">                 while ( flag) &#123;</div><div class="line">                     Socket clientSocket = serverSocket.accept();</div><div class="line">                     System.out.println( &quot;有客户端连接&quot; );</div><div class="line">                     SocketThread socketThread = new SocketThread(clientSocket);</div><div class="line">                     socketThread.start();</div><div class="line"> </div><div class="line">                &#125;</div><div class="line"> </div><div class="line">           &#125; catch (IOException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">           &#125; finally &#123;</div><div class="line">                 try &#123;</div><div class="line">                      writer.close();</div><div class="line">                &#125; catch (IOException e) &#123;</div><div class="line">                     e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">           &#125;</div><div class="line">     &#125;</div><div class="line"> </div><div class="line">     public class SocketThread extends Thread &#123;</div><div class="line"> </div><div class="line">            private Socket socket;</div><div class="line">            Scanner sc = null;</div><div class="line"></div><div class="line">            SimpleDateFormat sdf=new SimpleDateFormat(&quot;MM-dd HH:mm:ss&quot;);//转换格式</div><div class="line">        </div><div class="line"></div><div class="line">            public SocketThread(Socket clientSocket) &#123;</div><div class="line">                 this. socket = clientSocket;</div><div class="line">           &#125;</div><div class="line"> </div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                 super.run();</div><div class="line"> </div><div class="line">                InputStream inputStream;</div><div class="line">                 try &#123;</div><div class="line">                      //获取输入流</div><div class="line">                     inputStream = socket.getInputStream();</div><div class="line">                      //得到读取BufferedReader对象</div><div class="line">                     reader = new BufferedReader( new InputStreamReader(inputStream,&quot;utf-8&quot; ));</div><div class="line">                     writer = new BufferedWriter( new OutputStreamWriter(socket.getOutputStream(),&quot;utf-8&quot; ));</div><div class="line">                     </div><div class="line">                     while ( flag) &#123;</div><div class="line">                            if (true) &#123;</div><div class="line"></div><div class="line">                                System. out.println( &quot;发送消息：&quot;);</div><div class="line">                                sc = new Scanner(System.in); </div><div class="line">                                String str=sc.nextLine();</div><div class="line">                                writer.write(&quot;# &quot;+sdf.format(new Date()) +&quot;:  &quot; +str+&quot;\n&quot; );//发送时间和输入的信息</div><div class="line">                                writer.flush();</div><div class="line"></div><div class="line">                           &#125;</div><div class="line">                     &#125;</div><div class="line">                &#125; catch (IOException e) &#123;</div><div class="line">                     e.printStackTrace();</div><div class="line">                &#125;</div><div class="line"> </div><div class="line">           &#125;</div><div class="line">     &#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<center>*</center>
+
+<center>*</center>
+
+
+<hr>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="首先-先实现socket的连接-这里采用tcp"><a href="#首先-先实现socket的连接-这里采用tcp" class="headerlink" title="首先 先实现socket的连接 这里采用tcp"></a>首先 先实现socket的连接 这里采用tcp</h2><p>要求：输入服务器IP和端口（你想要写死也可以）点击按钮开启socket服务</p>
+<h3 id="实现步骤："><a href="#实现步骤：" class="headerlink" title="实现步骤："></a>实现步骤：</h3><p>1、新建一个activity（里面定义一个Button 两个editText）和一个MyService.java<br>2、点击Button，传ip和端口给service并启动<br>3、service生成线程进行socket连接<br>4、接受消息，用Handle更新ui，Notifiction提示消息</p>
+<p>新建一个activity，我这里名为SecondActivity,为什么这样取，后面就会知道了 </p>
+<p><strong><em>SecondActivity：</em></strong><br>没在<em>AndroidManifest.xml</em>声明的记得声明 后面会贴出整个清单文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import android.content.Intent;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.view.KeyEvent;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.CheckBox;</div><div class="line">import android.widget.EditText;</div><div class="line"></div><div class="line">public class SecondActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private Button button;</div><div class="line">    private EditText ssip, ssport;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(final Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line"></div><div class="line">        setContentView(R.layout.start); //我这里对应的布局名为start ，这里就不贴布局文件了</div><div class="line"></div><div class="line">        button = (Button) findViewById(R.id.button2);</div><div class="line">        ssip = (EditText) findViewById(R.id.editText3);</div><div class="line">        ssport = (EditText) findViewById(R.id.editText2);</div><div class="line"></div><div class="line">        //点击事件</div><div class="line">         button.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                //调用方法</div><div class="line">                openService()；</div><div class="line"></div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"></div><div class="line">//封装开启service的方法</div><div class="line">public void openService() &#123;</div><div class="line">            //通过Intent与service通讯并开启service</div><div class="line">            Intent intent = new Intent(SecondActivity.this, MyService.class);</div><div class="line">            intent.putExtra(&quot;ip&quot;, ssip.getText().toString()); //获取输入ip</div><div class="line">            intent.putExtra(&quot;port&quot;, ssport.getText().toString()); //获取输入端口</div><div class="line">            startService(intent);</div><div class="line">       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<center>*</center>
+
+<center>*</center>
+
+<p><strong><em>MyService：</em></strong><br>Service基本上分为两种形式：<strong>启动状态</strong>，即startService()和<strong>绑定状态</strong>，即bindService() <a href="https://blog.csdn.net/javazejian/article/details/52709857" title="https://blog.csdn.net/javazejian/article/details/52709857" target="_blank" rel="external">详细</a><br>这里用的是启动状态<br>记得在<em>AndroidManifest.xml</em>声明服务 给足权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div></pre></td><td class="code"><pre><div class="line">import android.app.Notification;</div><div class="line">import android.app.NotificationChannel;</div><div class="line">import android.app.NotificationManager;</div><div class="line">import android.app.PendingIntent;</div><div class="line">import android.app.Service;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.os.Handler;</div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.Message;</div><div class="line">import android.support.annotation.Nullable;</div><div class="line">import android.support.v4.app.NotificationCompat;</div><div class="line">import android.util.Log;</div><div class="line">import android.widget.Toast;</div><div class="line">import java.io.BufferedReader;</div><div class="line">import java.io.BufferedWriter;</div><div class="line">import java.io.InputStreamReader;</div><div class="line">import java.io.OutputStreamWriter;</div><div class="line">import java.net.Socket;</div><div class="line">import static android.content.ContentValues.TAG;</div><div class="line"></div><div class="line">public class MyService extends Service &#123;</div><div class="line"></div><div class="line"></div><div class="line">    private Socket clientSocket;</div><div class="line">    private BufferedWriter mWriter;</div><div class="line">    private BufferedReader mReader;</div><div class="line">    boolean isReceivingMsgReady;</div><div class="line"></div><div class="line">    private int Notification_ID = 1;</div><div class="line"></div><div class="line">    final String CHANNEL_ID = &quot;channel_id_1&quot;;</div><div class="line">    final String CHANNEL_NAME = &quot;channel_name_1&quot;;</div><div class="line">    private String ssip, temp;</div><div class="line">    private int ssport;</div><div class="line">    private String sb, string;</div><div class="line"></div><div class="line">    //使用handler更新ui</div><div class="line">    public Handler mHandler = new Handler() &#123;</div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;</div><div class="line">            super.handleMessage(msg);</div><div class="line">            switch (msg.what) &#123;</div><div class="line">                case 0:</div><div class="line">                    try &#123;</div><div class="line">                        sb = msg.obj.toString(); //接收数据 </div><div class="line">                        sendNotification(sb);//状态栏通知消息</div><div class="line">                    &#125; catch (Exception e) &#123;</div><div class="line"></div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    break;</div><div class="line"></div><div class="line">                case 1:</div><div class="line">                    Toast.makeText(getApplicationContext(), &quot;已经连接服务器&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">                    break;</div><div class="line">                case 2:</div><div class="line">                    Toast.makeText(getApplicationContext(), &quot;服务器已断开&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">                    break;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">     @Nullable</div><div class="line">    @Override</div><div class="line">    //必须复写</div><div class="line">    public IBinder onBind(Intent intent) &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //这里进行初始化</div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;</div><div class="line">        super.onCreate();</div><div class="line">       Log.d(TAG, &quot;onCreate: ############&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">//这里会传进一个intent</div><div class="line">    @Override</div><div class="line">    public int onStartCommand(Intent intent, int flags, int startId) &#123;</div><div class="line">        Log.d(TAG, &quot;onStartCommand: ############&quot;);</div><div class="line"></div><div class="line">        ssip = intent.getStringExtra(&quot;ip&quot;); //获取SecondActivity传来的IP和端口</div><div class="line">        temp = intent.getStringExtra(&quot;port&quot;);</div><div class="line">        ssport = Integer.parseInt(temp); //String 转int</div><div class="line">        if (!isReceivingMsgReady) //没有这个，你点一次按钮，就创建一个线程，浪费资源</div><div class="line">            initSocket(ssip, ssport); //调用方法</div><div class="line"></div><div class="line">        return super.onStartCommand(intent, flags, startId);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">        stopSelf();</div><div class="line">        Log.d(TAG, &quot;onDestroy: ############&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//socket连接</div><div class="line">    private void initSocket(final String ip, final int port) &#123;</div><div class="line"></div><div class="line">        //来个线程 service中也是不能直接进行耗时操作的</div><div class="line">        new Thread(new Runnable() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line"></div><div class="line"></div><div class="line">                try &#123;</div><div class="line"></div><div class="line">                    //在子线程中初始化Socket对象</div><div class="line">                    clientSocket = new Socket(ip, port);</div><div class="line"></div><div class="line">                    //根据clientSocket.getInputStream得到BufferedReader对象，从而从输入流中获取数据</div><div class="line">                </div><div class="line">                    isReceivingMsgReady = true;</div><div class="line">                    mReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), &quot;utf-8&quot;));</div><div class="line"></div><div class="line">                    //根据clientSocket.getOutputStream得到BufferedWriter对象，从而从输出流中获取数据</div><div class="line">                    mWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), &quot;utf-8&quot;));</div><div class="line"></div><div class="line">                    clientSocket.sendUrgentData(0xFF); //心跳包，不知道是不是这样用。 这行可以不要</div><div class="line"></div><div class="line">                    //判断socket有无断开，一个特别简陋的方法</div><div class="line">                    if (!clientSocket.isOutputShutdown()) &#123;</div><div class="line">                        mHandler.sendEmptyMessage(1);//toast通知已连接</div><div class="line"></div><div class="line">                        while (isReceivingMsgReady) &#123;</div><div class="line">                            if (mReader.ready()) &#123;</div><div class="line">                                string = mReader.readLine(); //读取数据，这里要了解readLine()的特性。</div><div class="line">                                mHandler.obtainMessage(0, string).sendToTarget();//发送数据给handle，通知更新ui</div><div class="line"></div><div class="line">                                Notification_ID++;//修改id，确保不覆盖消息，一条消息对应一个notification</div><div class="line"></div><div class="line">                            &#125;</div><div class="line"></div><div class="line">                            Thread.sleep(200);</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        mWriter.close();</div><div class="line">                        mReader.close();</div><div class="line">                        clientSocket.close();</div><div class="line">                    &#125; else &#123;</div><div class="line">                        mHandler.sendEmptyMessage(2);toast通知</div><div class="line">                    &#125;</div><div class="line">                &#125; catch (Exception e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">//状态通知服务器消息 这里要注意api的版本，我使用的方法是较新的</div><div class="line"> private void sendNotification(String str) &#123;</div><div class="line">        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</div><div class="line"></div><div class="line">        if (android.os.Build.VERSION.SDK_INT &gt;= android.os.Build.VERSION_CODES.O) &#123;</div><div class="line">            //只在Android O之上需要渠道</div><div class="line">            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,</div><div class="line">                    CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);</div><div class="line">            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，</div><div class="line">            //通知才能正常弹出</div><div class="line">            manager.createNotificationChannel(notificationChannel);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        builder.setSmallIcon(R.mipmap.ic_launcher)</div><div class="line">                .setContentTitle(&quot;_(:3」∠❀)_&quot;)//通知标题</div><div class="line">                .setContentText(str)//通知内容</div><div class="line">                .setAutoCancel(true) </div><div class="line">                .setDefaults(Notification.DEFAULT_ALL);</div><div class="line"></div><div class="line"></div><div class="line">        manager.notify(Notification_ID, builder.build());</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>至此，基本实现推送功能。<br>下面是我纯粹为了锻炼开发能力而添加的功能<br>没有兴趣的读者可跳过</strong></p>
+<hr>
+<h2 id="优化添加功能"><a href="#优化添加功能" class="headerlink" title="优化添加功能"></a>优化添加功能</h2><p>要添加的功能：<br>1、监听返回键，按两次退出应用<br>2、新建一个activity来显示所有接收的消息（广播）<br>3、记住ip和端口<br>4、来个自己的应用启动页</p>
+ <center>*</center>
+
+ <center>*</center>
+
+ <center>*</center>
+
+<h3 id="🌑监听返回键，按两次退出应用"><a href="#🌑监听返回键，按两次退出应用" class="headerlink" title="🌑监听返回键，按两次退出应用"></a>🌑监听返回键，按两次退出应用</h3><p>这里要复写activity的onKeyDown方法<br>想要哪个activity有此功能，就把下面代码复制在哪个activity</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">  @Override</div><div class="line">public boolean onKeyDown(int keyCode, KeyEvent event) &#123;</div><div class="line">      if (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() == 0) &#123;</div><div class="line">          exit();</div><div class="line">          return true;</div><div class="line">      &#125;</div><div class="line">      return super.onKeyDown(keyCode, event);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private void exit() &#123;</div><div class="line">      if ((System.currentTimeMillis() - mExitTime) &gt; 2000) &#123;</div><div class="line">          Toast.makeText(MainActivity.this, &quot;再按一次退出应用&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">          mExitTime = System.currentTimeMillis();</div><div class="line">      &#125; else &#123;</div><div class="line">          //用户退出处理</div><div class="line">          finish();</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+ <center>*</center>
+
+ <center>*</center>
+
+ <center>*</center>
+
+<h3 id="🌒新建一个activity来显示所有接收的消息"><a href="#🌒新建一个activity来显示所有接收的消息" class="headerlink" title="🌒新建一个activity来显示所有接收的消息"></a>🌒新建一个activity来显示所有接收的消息</h3><p>这里会实现<br>1、textview的竖直滚动，自动最后一行<br>2、获取本机ip（WiFi和GPRS）<br>3、广播接收Myservice传来的信息（成员内部类）</p>
+<p>下面都会封装成方法<br>这里我命名为MainActivity（定义一个Button，两个TextView），对应布局为activity_main.xml<br>显示消息的textview 在布局文件中添加以下属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">android:enabled=&quot;true&quot;</div><div class="line">android:textIsSelectable=&quot;true&quot;</div><div class="line">android:focusable=&quot;true&quot;</div><div class="line">android:longClickable=&quot;true&quot;</div><div class="line">android:scrollbarFadeDuration=&quot;2000&quot;</div><div class="line">android:scrollbars=&quot;none&quot;</div><div class="line">android:fadeScrollbars=&quot;false&quot;</div><div class="line">android:maxLines=&quot;28&quot; //行数自定义</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<p><strong><em>MainActivity：</em></strong><br>记得声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div></pre></td><td class="code"><pre><div class="line">import android.content.BroadcastReceiver;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.content.IntentFilter;</div><div class="line">import android.net.ConnectivityManager;</div><div class="line">import android.net.NetworkInfo;</div><div class="line">import android.net.wifi.WifiInfo;</div><div class="line">import android.net.wifi.WifiManager;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.text.TextUtils;</div><div class="line">import android.view.KeyEvent;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.TextView;</div><div class="line">import android.widget.Toast;</div><div class="line">import java.net.Inet4Address;</div><div class="line">import java.net.InetAddress;</div><div class="line">import java.net.NetworkInterface;</div><div class="line">import java.util.Enumeration;</div><div class="line"></div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private Button button;</div><div class="line">    private TextView textview, iptv;</div><div class="line">    private StringBuffer sb = new StringBuffer();</div><div class="line">    private Intent MyserviceIntent;</div><div class="line">    private String getMyservice;</div><div class="line">    int scrollAmount;</div><div class="line">    private long mExitTime;</div><div class="line">    private String ip;</div><div class="line"></div><div class="line">  protected void onCreate(final Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        button = (Button) findViewById(R.id.button);//用来结束service，退出应用</div><div class="line">        textview = (TextView) findViewById(R.id.textview);//显示消息</div><div class="line">        iptv = (TextView) findViewById(R.id.iptextView);</div><div class="line"></div><div class="line">        ConnectivityManager conMann = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);</div><div class="line">        NetworkInfo mobileNetworkInfo = conMann.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);</div><div class="line">        NetworkInfo wifiNetworkInfo = conMann.getNetworkInfo(ConnectivityManager.TYPE_WIFI);</div><div class="line"></div><div class="line">        //实例化广播接受器并动态注册</div><div class="line">        final MsgReceiver msgReceiver = new MsgReceiver();//实例化就可接受广播</div><div class="line">        IntentFilter intentFilter = new IntentFilter();</div><div class="line">        intentFilter.addAction(&quot;com.daby.communication.RECEIVER&quot;);</div><div class="line">        registerReceiver(msgReceiver, intentFilter);</div><div class="line"></div><div class="line">        //判断网络类型 并获取IP</div><div class="line">        if (mobileNetworkInfo.isConnected()) &#123;</div><div class="line">            ip = getLocalIpAddress();</div><div class="line">            iptv.setText(getString(R.string.ipname) + ip);</div><div class="line">        &#125; else if (wifiNetworkInfo.isConnected()) &#123;</div><div class="line">            iptv.setText(getString(R.string.ipname) + wifigetIP(ip));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //关闭服务</div><div class="line">        MyserviceIntent = new Intent(getApplication(), MyService.class);</div><div class="line">        button.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                Toast.makeText(getApplication(),&quot;已断开服务器连接&quot;,Toast.LENGTH_SHORT).show();</div><div class="line">                stopService(MyserviceIntent);</div><div class="line">                finish();</div><div class="line">                System.exit(0);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;);</div><div class="line"></div><div class="line">   &#125; </div><div class="line"></div><div class="line">   //获取GPRS ip</div><div class="line">    private String getLocalIpAddress() &#123;</div><div class="line">        String ip = &quot;&quot;;</div><div class="line">        try &#123;</div><div class="line">            for (Enumeration&lt;NetworkInterface&gt; en = NetworkInterface.getNetworkInterfaces();</div><div class="line">                 en.hasMoreElements(); ) &#123;</div><div class="line">                NetworkInterface intf = en.nextElement();</div><div class="line">                for (Enumeration&lt;InetAddress&gt; enumIpAddr = intf.getInetAddresses();</div><div class="line">                     enumIpAddr.hasMoreElements(); ) &#123;</div><div class="line">                    InetAddress inetAddress = enumIpAddr.nextElement();</div><div class="line">                    if (!inetAddress.isLoopbackAddress() &amp;&amp; inetAddress instanceof Inet4Address) &#123;</div><div class="line"></div><div class="line">                        ip = inetAddress.getHostAddress().toString();</div><div class="line">                        break;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                if (!TextUtils.isEmpty(ip)) break;</div><div class="line">            &#125;</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            ip = &quot;&quot;;</div><div class="line">        &#125;</div><div class="line">        return ip;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //获取wifi ip</div><div class="line">    private String wifigetIP(String ip) &#123;</div><div class="line">        //获取WiFi服务</div><div class="line">        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);</div><div class="line">        //判断WiFi是否开启</div><div class="line">        if (!wifiManager.isWifiEnabled()) &#123;</div><div class="line">            wifiManager.setWifiEnabled(true);</div><div class="line">        &#125;</div><div class="line">        WifiInfo wifiInfo = wifiManager.getConnectionInfo();</div><div class="line">        int ipaddress = wifiInfo.getIpAddress();</div><div class="line">        ip = intTolp(ipaddress);//调用格式转换</div><div class="line">        return ip;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //wifi ip格式转换</div><div class="line">    private String intTolp(int i) &#123;</div><div class="line">        return (i &amp; 0xFF) + &quot;.&quot; + ((i &gt;&gt; 8) &amp; 0xFF) + &quot;.&quot; + ((i &gt;&gt; 16) &amp; 0xFF) + &quot;.&quot; + (i &gt;&gt; 24 &amp; 0xFF);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    //定义成员内部类，接受来自Myservice的广播</div><div class="line">    class MsgReceiver extends BroadcastReceiver &#123;</div><div class="line">        @Override</div><div class="line">        public void onReceive(Context context, Intent intent) &#123;</div><div class="line">            getMyservice = intent.getStringExtra(&quot;Tomian&quot;);</div><div class="line">            sb.append(getMyservice + &quot;\n&quot;);</div><div class="line"></div><div class="line">            textview.setText(sb);</div><div class="line">            //滚动显示</div><div class="line">            textview.post(new Runnable() &#123;</div><div class="line">                @Override</div><div class="line">                public void run() &#123;</div><div class="line"></div><div class="line">             scrollAmount = textview.getLayout().getLineTop(textview.getLineCount()) - textview.getHeight();</div><div class="line">                    if (scrollAmount &gt; 0)</div><div class="line">                        textview.scrollTo(0, scrollAmount);</div><div class="line">                    else</div><div class="line">                        textview.scrollTo(0, 0);</div><div class="line"></div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    //监听返回键，按两次退出</div><div class="line">    //为了代码看起来不多，这里就简写了！！！</div><div class="line">    @Override</div><div class="line">    public boolean onKeyDown(int keyCode, KeyEvent event) &#123;...&#125;</div><div class="line">    private void exit() &#123;...&#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<center>*</center>
+
+<center>*</center>
+
+<p>在<strong><em>Myservice</em></strong>进行修改发送广播<br><strong>！！！</strong>上面有的未修改代码简写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">import...</div><div class="line"></div><div class="line">public class MyService extends Service &#123;</div><div class="line"></div><div class="line">    private Socket...</div><div class="line"></div><div class="line">    public Handler mHandler = new Handler() &#123;</div><div class="line">        @Override</div><div class="line">        public void handleMessage(Message msg) &#123;...&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void sendNotification(String str) &#123;</div><div class="line">        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</div><div class="line">        if (android.os.Build.VERSION.SDK_INT &gt;= android.os.Build.VERSION_CODES.O) &#123;...&#125;</div><div class="line"></div><div class="line">        //这里添加 点击状态栏消息跳转MainActivity的功能</div><div class="line">        Intent intent = new Intent(getApplication(), MainActivity.class);</div><div class="line">        PendingIntent contentIntent = PendingIntent.getActivity(getApplication(), 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);//这里需要了解第四个参数</div><div class="line">        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);</div><div class="line"></div><div class="line"></div><div class="line">        builder.setSmallIcon(R.mipmap.ic_launcher)</div><div class="line">                .setContentTitle(&quot;_(:3」∠❀)_&quot;)</div><div class="line">                .setContentText(str)</div><div class="line">                .setAutoCancel(true)</div><div class="line">                .setContentIntent(contentIntent)//添加设置Intent，跳转</div><div class="line">                .setDefaults(Notification.DEFAULT_ALL);</div><div class="line"></div><div class="line"></div><div class="line">        manager.notify(Notification_ID, builder.build());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void initSocket(final String ip, final int port) &#123;</div><div class="line"></div><div class="line">        new Thread(new Runnable() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line"></div><div class="line"></div><div class="line">                try &#123;</div><div class="line"></div><div class="line"></div><div class="line">                    //在子线程中初始化Socket对象</div><div class="line">                    clientSocket = new Socket...</div><div class="line"></div><div class="line">                    if (!clientSocket.isOutputShutdown()) &#123;</div><div class="line">                        mHandler.sendEmptyMessage(1);</div><div class="line"></div><div class="line">                        while (isReceivingMsgReady) &#123;</div><div class="line">                            if (mReader.ready()) &#123;</div><div class="line">                                string = mReader.readLine(); //这里要了解readLine()的特性。</div><div class="line">                                mHandler.obtainMessage(0, string).sendToTarget();</div><div class="line"></div><div class="line">                                TomainIntent.putExtra(&quot;Tomian&quot;, string);</div><div class="line">                                Notification_ID++;</div><div class="line">                                sendBroadcast(TomainIntent);//添加发送广播</div><div class="line"></div><div class="line">                            &#125;</div><div class="line"></div><div class="line">                            Thread.sleep(200);</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        mWriter.close();</div><div class="line">                        mReader.close();</div><div class="line">                        clientSocket.close();</div><div class="line">                    &#125; else &#123;</div><div class="line">                        mHandler.sendEmptyMessage(2);</div><div class="line">                    &#125;</div><div class="line">                &#125; catch (Exception e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Nullable</div><div class="line">    @Override</div><div class="line"></div><div class="line">    public IBinder onBind(Intent intent) &#123;return null;&#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;...&#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int onStartCommand(Intent intent, int flags, int startId) &#123;...&#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDestroy() &#123;...&#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<center>*</center>
+
+<center>*</center>
+
+<h3 id="🌓记住ip和端口"><a href="#🌓记住ip和端口" class="headerlink" title="🌓记住ip和端口"></a>🌓记住ip和端口</h3><p>修改<strong><em>SecondActivity</em></strong><br>添加CheckBox，用SharedPreferences保存ip和端口<br>连接后跳转到<strong><em>MainActivity</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div></pre></td><td class="code"><pre><div class="line">import android.content.Intent;</div><div class="line">import android.content.SharedPreferences;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.os.Handler;</div><div class="line">import android.os.Message;</div><div class="line">import android.preference.PreferenceManager;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.view.KeyEvent;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.CheckBox;</div><div class="line">import android.widget.EditText;</div><div class="line">import android.widget.Toast;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">public class SecondActivity extends AppCompatActivity &#123;</div><div class="line">    private Button button;</div><div class="line">    private CheckBox checkBox;</div><div class="line">    private EditText ssip, ssport;</div><div class="line">    private SharedPreferences sharedPreferences;</div><div class="line">    private SharedPreferences.Editor editor;</div><div class="line">    private Handler mHandler;</div><div class="line">    private long mExitTime;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(final Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.start);</div><div class="line"></div><div class="line">        button = (Button) findViewById(R.id.button2);</div><div class="line">        checkBox = (CheckBox) findViewById(R.id.checkbox);</div><div class="line">        ssip = (EditText) findViewById(R.id.editText3);</div><div class="line">        ssport = (EditText) findViewById(R.id.editText2);</div><div class="line"></div><div class="line">        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);</div><div class="line">        boolean pang = sharedPreferences.getBoolean(&quot;remember_servic&quot;, false);</div><div class="line"></div><div class="line"></div><div class="line">        mHandler = new Handler() &#123;</div><div class="line">            @Override</div><div class="line">            public void handleMessage(Message msg) &#123;</div><div class="line">                super.handleMessage(msg);</div><div class="line">                switch (msg.what) &#123;</div><div class="line">                    case 0:</div><div class="line">                        Toast.makeText(SecondActivity.this, &quot;空哦&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">                        break;</div><div class="line"></div><div class="line"></div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        if (pang)//第一次运行 pang=false</div><div class="line">        &#123;</div><div class="line"></div><div class="line">            ssip.setText(sharedPreferences.getString(&quot;ip&quot;, &quot;&quot;));     //读取数据</div><div class="line">            ssport.setText(sharedPreferences.getString(&quot;port&quot;, &quot;&quot;));//读取数据</div><div class="line">            checkBox.setChecked(true);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        button.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                remb();</div><div class="line"></div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void openService() &#123;</div><div class="line">            Intent intent = new Intent(SecondActivity.this, MyService.class);</div><div class="line">            intent.putExtra(&quot;ip&quot;, ssip.getText().toString());</div><div class="line">            intent.putExtra(&quot;port&quot;, ssport.getText().toString());</div><div class="line">            startService(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//连接成功后开启MainActivity</div><div class="line">    public void openActivity() &#123;</div><div class="line">        Intent intent2 = new Intent(SecondActivity.this, MainActivity.class);</div><div class="line">        startActivity(intent2);</div><div class="line">        overridePendingTransition(R.anim.open_in, R.anim.open_out);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//封装记住密码方法</div><div class="line">    private void remb() &#123;</div><div class="line">        editor = sharedPreferences.edit();</div><div class="line">        String tempip = ssip.getText().toString();</div><div class="line">        String tempport = ssport.getText().toString();</div><div class="line">      </div><div class="line">      //判断一下输入IP和端口是否为空</div><div class="line">        if (!tempip.isEmpty() &amp;&amp; !tempport.isEmpty()) &#123;</div><div class="line">            if (checkBox.isChecked()) &#123;</div><div class="line"></div><div class="line">                //存放数据</div><div class="line">                editor.putString(&quot;ip&quot;, tempip); </div><div class="line">                editor.putString(&quot;port&quot;, tempport);</div><div class="line">                editor.putBoolean(&quot;remember_service&quot;, true);</div><div class="line">            &#125; else &#123;</div><div class="line">                editor.clear();//所有信息全部进行清空</div><div class="line">            </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            editor.apply();//apply是将修改数据原子提交到内存，而后异步真正提交到硬件磁盘</div><div class="line">            openService();</div><div class="line">            openActivity();</div><div class="line">            finish();</div><div class="line">        &#125; else &#123;</div><div class="line">            mHandler.sendEmptyMessage(0);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public boolean onKeyDown(int keyCode, KeyEvent event) &#123;...&#125;</div><div class="line">    private void exit() &#123;...&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<center>*</center>
+
+<center>*</center>
+
+<h3 id="🌔来个自己的应用启动页"><a href="#🌔来个自己的应用启动页" class="headerlink" title="🌔来个自己的应用启动页"></a>🌔来个自己的应用启动页</h3><p>新建一个activity（名为FirstActivity）对应布局welcome.xml<br>定义一个ImageView 添加自己喜欢的图片，可以直接铺满activity<br>我这里添加一个小logo，并实现旋转动画<br><strong><em>FirstActivity：</em></strong><br>记得声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">import android.content.Intent;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.os.Handler;</div><div class="line">import android.support.annotation.Nullable;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.view.WindowManager;</div><div class="line">import android.view.animation.Animation;</div><div class="line">import android.view.animation.AnimationUtils;</div><div class="line">import android.view.animation.LinearInterpolator;</div><div class="line">import android.widget.ImageView;</div><div class="line"></div><div class="line">public class FirstActivity extends AppCompatActivity &#123;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(@Nullable Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState); </div><div class="line"></div><div class="line">        //隐藏状态栏和标题栏，注意要写在setContentView前面</div><div class="line">        getSupportActionBar().hide();</div><div class="line">        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</div><div class="line">        setContentView(R.layout.welcome);</div><div class="line"></div><div class="line">        //实现动画,</div><div class="line">        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);//这里需要添加动画文件（名为rotate_anim.xml），放在res/anim/ 目录下</div><div class="line">        LinearInterpolator lin = new LinearInterpolator();</div><div class="line">        rotate.setInterpolator(lin);</div><div class="line">        ((ImageView)findViewById(R.id.imageView3)).setAnimation(rotate);</div><div class="line">        ((ImageView)findViewById(R.id.imageView3)).startAnimation(rotate);</div><div class="line"></div><div class="line">        Handler hd = new Handler();</div><div class="line">        hd.postDelayed(new splashhandler(), 1150);//开启SecondActivity，1150是延迟操作的时间，单位毫秒</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    class splashhandler implements Runnable &#123;</div><div class="line"></div><div class="line">        public void run() &#123;</div><div class="line">            startActivity(new Intent(getApplication(), SecondActivity.class));</div><div class="line">            overridePendingTransition(R.anim.open_in, R.anim.open_out);//这里添加activity开启的动画。同样在在res/anim/ 目录下</div><div class="line">            FirstActivity.this.finish();</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<p><strong><em>rotate_anim：</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;rotate</div><div class="line">        android:fromDegrees=&quot;0&quot;</div><div class="line">        android:interpolator=&quot;@android:anim/cycle_interpolator&quot;</div><div class="line">        android:pivotX=&quot;50%&quot;</div><div class="line">        android:pivotY=&quot;50%&quot;</div><div class="line">        android:toDegrees=&quot;359&quot;                //具体参数可自己查询</div><div class="line">        android:duration = &quot;1500&quot;</div><div class="line">        android:repeatCount = &quot;-1&quot;</div><div class="line"></div><div class="line">        android:visible = &quot;true&quot;&gt;</div><div class="line">    &lt;/rotate&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<p><strong><em>open_in：</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;translate</div><div class="line">        android:fromYDelta=&quot;100%p&quot;</div><div class="line">        android:toYDelta=&quot;0&quot;</div><div class="line">        android:duration=&quot;@android:integer/config_mediumAnimTime&quot;        /&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure></p>
+<center>*</center>
+
+<p><strong><em>open_out：</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;translate</div><div class="line">        android:fromYDelta=&quot;0&quot;</div><div class="line">        android:toYDelta=&quot;-100%p&quot;</div><div class="line">        android:duration=&quot;@android:integer/config_mediumAnimTime&quot;    /&gt;</div><div class="line">&lt;/set&gt;</div><div class="line">&lt;!-- android:duration是动画时间--&gt;</div></pre></td></tr></table></figure></p>
+ <center>*</center>
+
+ <center>*</center>
+
+ <center>*</center>
+
+
+<hr>
+<h1 id="总清单文件"><a href="#总清单文件" class="headerlink" title="总清单文件"></a>总清单文件</h1><p><strong><em>AndroidManifest.xml：</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    package=&quot;com.example.daby.handlerdemo&quot;&gt;</div><div class="line"></div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.CHANGE_WIFI_STATE&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.CHANGE_NETWORK_STATE&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.VIBRATE&quot; /&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.FLASHLIGHT&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">        android:allowBackup=&quot;true&quot;</div><div class="line">        android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">        android:label=&quot;@string/app_name&quot;</div><div class="line">        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;</div><div class="line">        android:supportsRtl=&quot;true&quot;</div><div class="line">        android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line"></div><div class="line"></div><div class="line">        &lt;activity android:name=&quot;.FirstActivity&quot;&gt;//这里设置FirstActivity为首个activity</div><div class="line"></div><div class="line"></div><div class="line">            &lt;intent-filter &gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</div><div class="line"></div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line"></div><div class="line">        &lt;activity</div><div class="line">            android:name=&quot;.MainActivity&quot;</div><div class="line">            android:launchMode=&quot;singleTask&quot;&gt;&lt;/activity&gt; //singleTask 非常重要，MainActivity被放入后台后，返回不会生成新的activity，保证数据不被清掉</div><div class="line"></div><div class="line">        &lt;service android:name=&quot;.MyService&quot; /&gt; //声明服务</div><div class="line"></div><div class="line">        &lt;activity android:name=&quot;.SecondActivity&quot;&gt;&lt;/activity&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure></p>
+ <center>*</center>
+
+ <center>*</center>
+
+ <center>*</center>
+
+ <center>======The end======</center>
+
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2017/11/26/安静/" title= 安静 >
+                    <div class="prevTitle">安静</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1049309395@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/swdaby" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/avatar/wechat.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> 🐒</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#需求：知名网友叫我写一个Android推送的客户端"><span class="toc-number">1.</span> <span class="toc-text">需求：知名网友叫我写一个Android推送的客户端</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#要点"><span class="toc-number">2.</span> <span class="toc-text">要点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务器端"><span class="toc-number">3.</span> <span class="toc-text">服务器端</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端"><span class="toc-number">4.</span> <span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#首先-先实现socket的连接-这里采用tcp"><span class="toc-number">4.1.</span> <span class="toc-text">首先 先实现socket的连接 这里采用tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实现步骤："><span class="toc-number">4.1.1.</span> <span class="toc-text">实现步骤：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化添加功能"><span class="toc-number">4.2.</span> <span class="toc-text">优化添加功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#🌑监听返回键，按两次退出应用"><span class="toc-number">4.2.1.</span> <span class="toc-text">🌑监听返回键，按两次退出应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌒新建一个activity来显示所有接收的消息"><span class="toc-number">4.2.2.</span> <span class="toc-text">🌒新建一个activity来显示所有接收的消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌓记住ip和端口"><span class="toc-number">4.2.3.</span> <span class="toc-text">🌓记住ip和端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌔来个自己的应用启动页"><span class="toc-number">4.2.4.</span> <span class="toc-text">🌔来个自己的应用启动页</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总清单文件"><span class="toc-number">5.</span> <span class="toc-text">总清单文件</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2018/08/25/Android开发一些小经验/" >Android开发的一些小经验</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/2017/11/26/安静/" >安静</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2017/09/23/Android启动过程/" >Android启动过程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2017/09/04/Markdown语法手册/" >Markdown语法手册</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2017/09/04/常用hexo命令/" >常用hexo命令</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Daby"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
