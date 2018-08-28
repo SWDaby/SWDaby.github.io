@@ -29,6 +29,6 @@
   <entry>
     <title><![CDATA[常用hexo命令]]></title>
     <url>%2F2017%2F09%2F04%2F%E5%B8%B8%E7%94%A8hexo%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[常见命令1234567hexo new &quot;postName&quot; #新建文章hexo new page &quot;pageName&quot; #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）hexo deploy #部署到GitHubhexo help # 查看帮助hexo version #查看Hexo的版本 缩写1234hexo n == hexo newhexo g == hexo generatehexo s == hexo serverhexo d == hexo deploy 组合命令12hexo s -g #生成并本地预览hexo d -g #生成并上传]]></content>
+    <content type="text"><![CDATA[常见命令1234567hexo new &quot;postName&quot; #新建文章hexo new page &quot;pageName&quot; #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）hexo deploy #部署到GitHubhexo help # 查看帮助hexo version #查看Hexo的版本 缩写1234hexo n == hexo newhexo g == hexo generatehexo s == hexo serverhexo d == hexo deploy 组合命令12hexo s -g #生成并本地预览hexo d -g #生成并上传，上传后，可能还是原页面，需要等待一会]]></content>
   </entry>
 </search>
