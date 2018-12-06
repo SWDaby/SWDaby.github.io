@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关于如何解决hexo archer 主题 统计功能失效的方法]]></title>
+    <url>%2F2018%2F12%2F06%2F%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3hexo-archer-%E4%B8%BB%E9%A2%98-%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[最近突然发现archer主题的统计功能失效 参考next主题的解决方法 https://blog.csdn.net/qijian… 终于将这一问题解决 先找到 layout.ejs 这一文件 路径如下： 1\themes\archer\layout\layout.ejs 1234567找到如下代码：&lt;script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"&gt;&lt;/script&gt;修改为：&lt;script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"&gt;&lt;/script&gt;--------------------- 完美解决]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[校园采风]]></title>
     <url>%2F2018%2F12%2F05%2F%E6%A0%A1%E5%9B%AD%E9%87%87%E9%A3%8E%2F</url>
     <content type="text"><![CDATA[大光圈无敌 👀 出去走走 你手中的相机总能拍到美景 景与你 风与你 你与你]]></content>
