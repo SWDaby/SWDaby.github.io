@@ -15,7 +15,7 @@
     <meta name="description" content="一个会点编程 设计的人">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>常用hexo命令 · Daby&#39;s Studio</title>
+    <title>Git笔记 · Daby&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -231,7 +231,7 @@
                 <a href="/" >Daby&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">常用hexo命令</a>
+                <a href="#" class="post-name">Git笔记</a>
             </div>
     </div>
     
@@ -263,7 +263,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            常用hexo命令
+            Git笔记
             <!-- 404 -->
             
         </h1>
@@ -280,20 +280,14 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Hexo">Hexo</a>
-    
-</div>
-                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">149</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">815</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2017/09/04</span>
+                    <span class="post-intro-time">2020/09/12</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -417,10 +411,8 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
-<h2 id="组合命令"><a href="#组合命令" class="headerlink" title="组合命令"></a>组合命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g #生成并本地预览</span><br><span class="line">hexo d -g #生成并上传，上传后，可能还是原页面，需要等待一会</span><br><span class="line"></span><br><span class="line">hexo s --debug  </span><br><span class="line">hexo g --debug</span><br></pre></td></tr></table></figure>
+        <h1 id="出处：AndyF"><a href="#出处：AndyF" class="headerlink" title="出处：AndyF"></a>出处：AndyF</h1><h1 id="Git笔记"><a href="#Git笔记" class="headerlink" title="Git笔记"></a>Git笔记</h1><p>开头的一点点小东西: origin远程库名, master主分支, HEAD当前分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line">### 开始</span><br><span class="line">git config --global user.email &quot;andyfan98@163.com&quot;</span><br><span class="line">git config --global user.name &quot;AndyF&quot;</span><br><span class="line"></span><br><span class="line">### git基础</span><br><span class="line"></span><br><span class="line">#初始化一个git仓库</span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">#把文件添加到仓库</span><br><span class="line">git add readme.txt</span><br><span class="line"></span><br><span class="line">#commit前把add的文件除去</span><br><span class="line">git rm --cached xxx</span><br><span class="line"></span><br><span class="line">#提交仓库</span><br><span class="line">git commit -m &lt;message&gt;</span><br><span class="line"></span><br><span class="line">#工作树状态</span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line">#查看修改内容</span><br><span class="line">git diff</span><br><span class="line"></span><br><span class="line">#显示从最近到最远的提交日志</span><br><span class="line">git log --pretty=oneline</span><br><span class="line"></span><br><span class="line">#回退到上一个版本</span><br><span class="line">#上一个版本:HEAD^，上上一个版本:HEAD^^, 上一百个版本:HEAD~100, 或者直接输入hash号前位</span><br><span class="line">git reset --hard HEAD^</span><br><span class="line"></span><br><span class="line">#回放操作记录</span><br><span class="line">git reflog</span><br><span class="line"></span><br><span class="line">#撤销readme.txt在工作区的修改</span><br><span class="line">git checkout -- readme.txt</span><br><span class="line"></span><br><span class="line">#把暂存区的修改撤销掉</span><br><span class="line">git reset HEAD &lt;file&gt;</span><br><span class="line"></span><br><span class="line">#从库里删除文件</span><br><span class="line">git rm &lt;file&gt;</span><br><span class="line"></span><br><span class="line">###远端库</span><br><span class="line">#添加远程库</span><br><span class="line">git remote add origin git@github.com:HiAndyFan/xxx.git</span><br><span class="line"></span><br><span class="line">#从远端pull master</span><br><span class="line">git pull git@github.com:HiAndyFan/xxx.git</span><br><span class="line">git pull origin master --allow-unrelated-histories</span><br><span class="line"></span><br><span class="line">#第一次push master分支</span><br><span class="line">git push -u origin master</span><br><span class="line"></span><br><span class="line">#以后push</span><br><span class="line">git push origin master</span><br><span class="line"></span><br><span class="line">#克隆远程库</span><br><span class="line">git clone git@github.com:HiAndyFan/gitskills.git</span><br><span class="line"></span><br><span class="line">#查看远程库信息</span><br><span class="line">git remote -v</span><br><span class="line">git branch -a</span><br><span class="line">git remote show origin</span><br><span class="line"></span><br><span class="line">###分支管理</span><br><span class="line">#创建新分支dev</span><br><span class="line">git branch dev</span><br><span class="line"></span><br><span class="line">#创建并切换到新dev分支</span><br><span class="line">git checkout -b dev</span><br><span class="line"></span><br><span class="line">#查看当前分支</span><br><span class="line">git branch</span><br><span class="line"></span><br><span class="line">#切换到master分支</span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">#合并dev到当前分支(master)</span><br><span class="line">git merge dev</span><br><span class="line"></span><br><span class="line">#删除dev分支</span><br><span class="line">git branch -d dev</span><br><span class="line"></span><br><span class="line">#查看分支合并图</span><br><span class="line">git log --graph</span><br><span class="line"></span><br><span class="line">##解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。</span><br><span class="line">#禁用Fast forward, 合并后仍保留分支</span><br><span class="line">git merge --no-ff -m &quot;merge with no-ff&quot; dev</span><br><span class="line"></span><br><span class="line">#临时储藏工作区(并不commits)</span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line">#查看储藏的工作区</span><br><span class="line">git stash list</span><br><span class="line"></span><br><span class="line">#恢复工作区</span><br><span class="line">git stash apply</span><br><span class="line"></span><br><span class="line">#删除储藏的工作区</span><br><span class="line">git stash drop</span><br><span class="line"></span><br><span class="line">#弹出储藏的工作区</span><br><span class="line">git stash pop</span><br><span class="line"></span><br><span class="line">#丢弃一个未合并的分支</span><br><span class="line">git branch -D &lt;name&gt;</span><br><span class="line"></span><br><span class="line">#变基</span><br><span class="line">git rebase</span><br><span class="line"></span><br><span class="line">###分支标签</span><br><span class="line">#在当前分支打上标签</span><br><span class="line">git tag &lt;name&gt;</span><br><span class="line"></span><br><span class="line">#查看所有标签</span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line">#为历史commit打上标签</span><br><span class="line">git tag v0.9 f52c633</span><br><span class="line"></span><br><span class="line">#删除标签</span><br><span class="line">git tag -d v0.1</span><br><span class="line"></span><br><span class="line">#推送标签到远程</span><br><span class="line">git push origin &lt;tagname&gt;</span><br><span class="line"></span><br><span class="line">#一次性推送所有标签</span><br><span class="line">git push origin --tags</span><br><span class="line"></span><br><span class="line">#删除远端的标签(必须先删除本地对应标签)</span><br><span class="line">git push origin :refs/tags/v0.9</span><br><span class="line"></span><br><span class="line">###自定义git</span><br><span class="line">.gitignore 忽略的文件</span><br><span class="line">[在线配置文件](https://github.com/github/gitignore)</span><br><span class="line"></span><br><span class="line">#强制添加被忽略的文件</span><br><span class="line">git add -f &lt;File&gt;</span><br><span class="line"></span><br><span class="line">#检查哪一行配置了问题文件</span><br><span class="line">git check-ignore</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot;</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -429,13 +421,13 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/09/04/Markdown语法手册/" title= Markdown语法手册 >
-                    <div class="nextTitle">Markdown语法手册</div>
-                </a>
-            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/09/08/创建短链接/" title= 创建短链接 >
+                    <div class="prevTitle">创建短链接</div>
+                </a>
             
         </li>
     </ul>
@@ -556,7 +548,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见命令"><span class="toc-number">1.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缩写"><span class="toc-number">2.</span> <span class="toc-text">缩写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合命令"><span class="toc-number">3.</span> <span class="toc-text">组合命令</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#出处：AndyF"><span class="toc-number">1.</span> <span class="toc-text">出处：AndyF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git笔记"><span class="toc-number">2.</span> <span class="toc-text">Git笔记</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
